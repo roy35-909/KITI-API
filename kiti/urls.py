@@ -29,5 +29,6 @@ urlpatterns = [
         name="swagger-ui",
     ),
 
-    path('auth/',include('authentication.urls'), name="Authentications API")
+    path('auth/',include('authentication.urls'), name="Authentications API"),
+    path('food/',include('Foods.urls'), name="Foods API"),
 ]

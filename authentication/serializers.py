@@ -19,7 +19,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializerWithToken(UserCreationSerializer):
     token = serializers.SerializerMethodField(read_only=True)
-   
     class Meta:
         model = User
         fields = ['token']

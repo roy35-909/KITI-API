@@ -31,6 +31,9 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 class RegisterAPIVIEW(NewAPIView):
+    """
+    API for Register . After Register it will give an user object.
+    """
     serializer_class = UserCreationSerializer
     def post(self,request):
 
