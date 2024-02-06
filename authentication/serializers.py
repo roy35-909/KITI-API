@@ -1,6 +1,7 @@
-from authentication.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from authentication.models import User
 
 
 class UserCreationSerializer(serializers.ModelSerializer):
@@ -11,11 +12,18 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-
+    role = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['id','first_name', 'last_name', 'email']
+        fields = ['id','first_name', 'last_name', 'email','role']
 
+
+    def get_role(self,instance):
+
+        if instance.is_superuser:
+            return True 
+        else:
+            return False
 
 class UserSerializerWithToken(UserCreationSerializer):
     token = serializers.SerializerMethodField(read_only=True)
