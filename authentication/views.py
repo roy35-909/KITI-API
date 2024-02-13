@@ -1,7 +1,3 @@
-from authentication.base_response import *
-from authentication.models import User
-from authentication.modified_api_view import *
-from authentication.serializers import *
 from django.contrib.auth import update_session_auth_hash
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics, status
@@ -11,6 +7,11 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from authentication.base_response import *
+from authentication.models import User
+from authentication.modified_api_view import *
+from authentication.serializers import *
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -51,3 +52,15 @@ class RegisterAPIVIEW(NewAPIView):
         ser = UserProfileSerializer(user)
         return s_200(ser)
     
+
+class UserProfileAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self,request):
+
+        user = User.objects.get(email = request.user.email)
+
+        ser = UserProfileSerializer(user)
+        return s_200(ser)

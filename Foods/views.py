@@ -59,7 +59,7 @@ class GetFoodOrder(NewAPIView):
         """
 
         objj = Order.objects.filter(user = request.user)
-        ser = OrderSerializer(objj)
+        ser = OrderSerializer(objj,many=True)
         return s_200(ser)
 
 
